@@ -10,7 +10,11 @@
       <button v-on:click="increaseBy(5)">Click me to increase by 5!</button>
       <button v-on:click="increaseByAndUpdateCoordinates(3, $event)">Click me to increase by 3 and update coordinates!</button>
       <p>{{ counter }}</p> 
-      <p v-on:mousemove="updateCoordinates">Hover to see mouse coordinates: {{ x }} / {{ y }}</p>
+      <p v-on:mousemove="updateCoordinates">
+        Hover to see mouse coordinates: {{ x }} / {{ y }} 
+        <span v-on:mousemove="deadSpot">DEAD SPOT #1</span> <!-- mouse coords won't update here (solution 1)  -->
+        <span v-on:mousemove.stop="">DEAD SPOT #2</span>  <!-- mouse coords won't update here (solution 2 - better, with modifier .stop) -->
+      </p>
     </div>
     <script>
       new Vue({
@@ -34,6 +38,9 @@
           updateCoordinates: function(e){
             this.x = e.clientX;
             this.y = e.clientY;
+          },
+          deadSpot: function(e){
+            e.stopPropagation();
           }
         }
       })
