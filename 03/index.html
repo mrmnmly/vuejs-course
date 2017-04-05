@@ -14,6 +14,10 @@
         Hover to see mouse coordinates: {{ x }} / {{ y }} 
         <span v-on:mousemove="deadSpot">DEAD SPOT #1</span> <!-- mouse coords won't update here (solution 1)  -->
         <span v-on:mousemove.stop="">DEAD SPOT #2</span>  <!-- mouse coords won't update here (solution 2 - better, with modifier .stop) -->
+        <!-- .stop modifier === e.stopPropagation, .prevent modifier === e.preventDefault -->
+        <hr>
+        <input type="text" v-on:keyup.enter="alertMe" /> <!-- alert after hitting enter key (thanks to .enter modifier - there's also e.g. .space modifier :D) -->
+        <!-- list of available modifiers: https://vuejs.org/v2/guide/events.html#Key-Modifiers -->
       </p>
     </div>
     <script>
@@ -41,6 +45,9 @@
           },
           deadSpot: function(e){
             e.stopPropagation();
+          },
+          alertMe: function(){
+            alert('Alert!');
           }
         }
       })
