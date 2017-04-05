@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+    <style>
+      .square{
+        display: inline-block;
+        width: 250px;
+        height: 250px;
+        background-color: black;
+        margin: 25px;
+      }
+      .red{
+        background-color: red;
+      }
+      .blue{
+        background-color: blue;
+      }
+      .green{
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="square"
+        @click="attachRed = !attachRed"
+        :class="{red: attachRed}"
+      ></div> <!--  we have to pass to :class a js object with class name and bool value if it should be added to div's class property or not. If class name has some special characters, such as '-', then we have to write it inside single-quotation marks e.g. :class="{'red-button': attachRed}" -->
+      
+      <div class="square"
+        @click="attachRed = !attachRed"
+        :class="divClasses"
+      ></div>
+
+      <div class="square" :class="color"></div><!-- it's attached to our data.color variable - we can now change color by writing css color class in the text input below :D I don't have to pass a javascript object but a direct class name -->
+
+      <div class="square" :class="[color, {red: attachRed}]"></div><!-- mixing it up as a array -->
+      
+      <hr>
+      
+      <input type="text" v-model="color" />
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          attachRed: false,
+          color: 'green'
+        },
+        computed: {
+          divClasses: function(){
+            return {
+              red: this.attachRed,
+              blue: !this.attachRed
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
