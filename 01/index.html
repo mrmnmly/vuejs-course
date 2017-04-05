@@ -9,6 +9,7 @@
       <input type="text" v-on:input="changeTitle">
       <p>{{ sayHello() }}</p>
       <p>{{ title }}</p>
+      <p>{{ sayTitle() }}</p>
     </div>
     <script>
       new Vue({
@@ -22,6 +23,9 @@
           },
           sayHello: function(){
             return 'Hello!';
+          },
+          sayTitle: function(){
+            return this.title; // in Vue instance declaration, `this` always points to Vue's instance (works like a proxy), so we can access Vue data properties and methods too! 
           }
         }
       })
