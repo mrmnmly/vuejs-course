@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+  </head>
+  <body>
+    <!-- solution 1 -->
+    <div id="app-1">
+      <button v-on:click="increase">Add</button>
+      <button v-on:click="decrease">Subtract</button>
+      {{ result }} - {{ counter }}
+    </div>
+    <script>
+      new Vue({
+        el: '#app-1',
+        data: {
+          counter: 0,
+          result: ''
+        },
+        methods: {
+          increase(){ // yes, we can declare methods also like this (ES6 syntax)
+            this.counter++;
+            this.result = this.counter < 5 ? 'Smaller than 5' : 'Bigger than 5';
+          },
+          decrease: function(){ // or like that (browser-wide support)
+            this.counter--; 
+            this.result = this.counter < 5 ? 'Smaller than 5' : 'Bigger than 5';
+          }
+        }
+      })
+    </script>
+
+    <hr>
+
+    <!-- solution 2 (better) -->
+    <div id="app-2">
+      <button v-on:click="counter++">Add</button>
+      <button v-on:click="counter--">Substract</button>
+      <button v-on:click="secondCounter++">Increase second counter</button>
+      <p>{{ result() }} - {{ counter }} - {{ secondCounter }}</p>
+      <p>{{ output }}</p><!-- this is computed function - take a look that we dont use () brackets! -->
+    </div>
+    <script>
+      new Vue({
+        el: '#app-2',
+        data: {
+          counter: 0,
+          secondCounter: 0 // it's here to present difference between computed and method functions - it's not used in computed 'output' function so when we update it by clicking on proper button the computed function won't run (check console logs!)
+        },
+        computed: { // computed functions run only when necessary - they're analyzed if anything (e.g. used variable) has changed - if not then it is not re-runned - we can say that they are cached and rendered only when necessary
+          output: function(){
+            console.log('Computed run!'); 
+            return this.counter < 5 ? 'Smaller than 5' : 'Bigger than 5'; 
+          }
+        },
+        methods: {  // method functions run every time DOM is re-rendered (Vue.js loop?)
+          result: function(){
+            console.log('Method run!');
+            return this.counter < 5 ? 'Smaller than 5' : 'Bigger than 5'; 
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
