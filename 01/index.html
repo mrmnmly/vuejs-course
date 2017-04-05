@@ -14,13 +14,16 @@
       <!-- whole line below is commented out because it throws errors -->
       <!-- <p><a href="{{ link }}">My website (broken)</a></p> this will not work! we can't interpolate vue.js data in DOM elements - it has to be placed like a plain text! -->
       <p><a v-bind:href="link">My website (fixed)</a></p> <!-- this will work! take a look that when we use v-bind we access vue's data without curly braces - because we're already in vue's instance thanks to v-bind directive -->
+      <hr>
+      <p v-html="finishedLink"></p><!-- v-html directive enables to insert raw HTML data, not parsed to string -->
     </div>
     <script>
       new Vue({
         el: '#app',
         data: {
           title: 'Type somethin!',
-          link: 'http://lukaszkups.net'
+          link: 'http://lukaszkups.net',
+          finishedLink: '<a href="http://lukaszkups.net">My website (as a raw html)</a>'
         },
         methods: {
           changeTitle: function(e){
