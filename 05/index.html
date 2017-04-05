@@ -48,10 +48,19 @@
           counter: 0,
           secondCounter: 0 // it's here to present difference between computed and method functions - it's not used in computed 'output' function so when we update it by clicking on proper button the computed function won't run (check console logs!)
         },
-        computed: { // computed functions run only when necessary - they're analyzed if anything (e.g. used variable) has changed - if not then it is not re-runned - we can say that they are cached and rendered only when necessary
+        computed: { // computed functions run only when necessary - they're analyzed if anything (e.g. used variable) has changed - if not then it is not re-runned - we can say that they are cached and rendered only when necessary. These functions always run synchronously
           output: function(){
             console.log('Computed run!'); 
             return this.counter < 5 ? 'Smaller than 5' : 'Bigger than 5'; 
+          }
+        },
+        watch: {  // watch functions are executed when the vue's data variable that matches function name (e.g. counter below) changes - then it will execute our custom actions. It's better to use computed function when we can, but sometimes watch functions are necessary. These function can run asynchronously (e.g. execute ajax request etc.)
+          counter: function(value){ // watch functions automatically pass value property, which is equal to vue's data variable that is watching by this function (e.g. counter here)
+            var vm = this; // store vue's instance variable (e.g. to have access to data props, e.g. this.counter in nested functions, like setTimeout below) 
+
+            setTimeout(function(){
+              vm.counter = 0;
+            }, 2000)
           }
         },
         methods: {  // method functions run every time DOM is re-rendered (Vue.js loop?)
