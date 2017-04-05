@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+  </head>
+  <body>
+    <!-- shorter syntax examples -->
+    <div id="app">
+      <button v-on:click="changeLink">Click to change link</button>
+      <button @click="changeLink">Click to change link</button> <!-- @click === v-on:click, so @ === v-on: -->
+      <a v-bind:href="link">Link</a>
+      <a :href="link">Link</a>  <!-- :href === v-bind:href, so : === v-bind: -->
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          link: 'http://lukaszkups.net'
+        },
+        methods: {
+          changeLink: function(){
+            this.link = 'http://google.com';
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
