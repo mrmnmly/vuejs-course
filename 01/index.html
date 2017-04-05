@@ -7,6 +7,7 @@
   <body>
     <div id="app">
       <input type="text" v-on:input="changeTitle">
+      <h1 v-once>{{ title }}</h1><!-- v-once directive renders element only once and stops listening on its changes -->
       <p>{{ sayHello() }}</p>
       <p>{{ title }}</p>
       <p>{{ sayTitle() }}</p>
