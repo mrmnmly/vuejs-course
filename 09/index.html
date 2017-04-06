@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+    <style>
+      .box{
+        display: inline-block;
+        margin: 20px;
+        width: 250px;
+        height: 250px;
+        background: black;
+      }
+      .gray{
+        background: gray;
+      }
+      .red{
+        background: red;
+      }
+      .green{
+        background: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="box" :style="{'background-color': color}"></div><!-- we can use js object, but with css style properties that has dash, we have to wrap in qutation marks  -->
+      <div class="box" :style="{backgroundColor: color}"></div><!-- or we can use camelCase -->
+      <div class="box" :style="myStyle"></div>
+      <div class="box" :style="[myStyle, {borderColor: 'black', borderSize: '1px', borderStyle: 'solid'}]"></div><!-- mixing stuff -->
+      <hr>
+      <input type="text" v-model="color" />
+      <input type="number" v-model="size" />
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          color: 'gray',
+          size: 100
+        },
+        computed: {
+          myStyle: function(){ // reminder - all computed properties has to be functions that returns something!
+            return {
+              backgroundColor: this.color,
+              width: this.size + 'px',
+              height: this.size + 'px'
+            };
+          }
+        },
+        methods: {
+        }
+      })
+    </script>
+  </body>
+</html>
