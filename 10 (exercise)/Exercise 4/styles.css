@@ -13,3 +13,11 @@
   background-color: gray;
   width: 50px !important;
 }
+
+.box {
+  display: block;
+  margin: 20px;
+  width: 150px;
+  height: 150px;
+  background: green;
+}

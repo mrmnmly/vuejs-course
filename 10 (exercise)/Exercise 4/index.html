@@ -7,11 +7,11 @@
     <div id="effect"></div>
   </div>
   <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
-  <div>I got no class :(</div>
+  <div :style="[firstClass, secondClass]">I got no class :(</div>
   <!-- 3) Let the user enter a class (create some example classes) and attach it -->
   <div>
-    <input type="text">
-    <div></div>
+    <input type="text" v-model="customClass" placeholder="type 'box' (it's a css class name)">
+    <div :class="customClass"></div>
   </div>
   <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
   <div>
@@ -21,8 +21,8 @@
   </div>
   <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
   <div>
-    <input type="text">
-    <div></div>
+    <input type="text" placeholder="write some css here" v-model="plainStyleList">
+    <div :style="[styleList]"></div>
   </div>
   <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
   <div>
