@@ -1,10 +1,16 @@
 new Vue({
   el: '#exercise',
   data: {
-    firstClass: {backgroundColor: 'pink'},
-    secondClass: {display: 'block', margin: '0 auto', textAlign: 'center'},
+    isVisible: false,
+    classForSwitch: 'box',
+    effect: '',
     customClass: '',
     plainStyleList: '',
+    progressBar:{
+      width: '0px',
+      height: '20px',
+      backgroundColor: 'red'
+    }
   },
   computed: {
     styleList: function(){
@@ -26,16 +32,20 @@ new Vue({
   },
   methods: {
     startEffect: function() {
-      var div = document.getElementById('effect'); 
-      
-      if(div.classList.contains('highlight')){
-        div.className = 'shrink';
-      }else{
-        div.className = 'highlight';
-      }
+      var vm = this;
+      this.effect = 'highlight';
+      setInterval(function(){
+        vm.effect = vm.effect === 'highlight' ? 'shrink' : 'highlight';
+      }, 2500);
     },
-    startProgress: function(){
-    
+    startProgress: function() {
+      var vm = this;
+      var width = 0;
+     
+      setInterval(function() {
+        width = width + 10;
+        vm.progressBar.width = width + 'px';
+      }, 500);
     }
   }
 });

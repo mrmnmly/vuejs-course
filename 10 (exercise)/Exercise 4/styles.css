@@ -21,3 +21,20 @@
   height: 150px;
   background: green;
 }
+
+.floatRight{
+  float: right;
+  display: inline-block;
+}
+
+.highRed{
+  height: 300px;
+  background: red;
+}
+
+.progressBar{
+  display: block;
+  width: 200px;
+  min-height: 20px;
+  border: 1px solid black;
+}
