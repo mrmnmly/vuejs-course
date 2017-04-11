@@ -35,7 +35,7 @@
       <hr>
       <ul>
         <li v-for="person in persons">
-          <div v-for="(value, key) in person">{{ key }}: {{ value }}</div><!-- automatically iterate through object properties -->
+          <div v-for="(value, key, index) in person">{{ key }}: {{ value }} ({{ index }})</div><!-- automatically iterate through object properties -->
         </li>
       </ul>
  
