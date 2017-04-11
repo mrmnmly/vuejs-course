@@ -15,12 +15,41 @@
       </template>
       <p v-show="show">Always in DOM!</p> <!-- v-show doesn't detach when show is false - it simply show or hide it - no removal from DOM -->
       <button @click="show = !show">Toggle</button>
+      <hr>
+      <ul>
+        <li v-for="ingredient in ingredients">{{ ingredient }}</li>
+      </ul>
+      
+      <hr>
+      <ul>
+        <li v-for="(ingredient, indx) in ingredients">{{ ingredient }} {{ indx }}</li><!-- howto get index in v-for -->
+      </ul>
+
+      <hr>
+      <template v-for="person in persons"><!-- iterate with template usage -->
+        <h1>{{ person.name  }}</h1>
+        <p>Age: {{ person.age }} </p>
+        <p>Fav color: {{ person.color }} </p>
+      </template>
+
+      <hr>
+      <ul>
+        <li v-for="person in persons">
+          <div v-for="(value, key) in person">{{ key }}: {{ value }}</div><!-- automatically iterate through object properties -->
+        </li>
+      </ul>
+ 
     </div>
     <script>
       new Vue({
         el: '#app',
         data: {
-          show: true
+          show: true,
+          ingredients: ['meat', 'fruit', 'vegetables'],
+          persons: [
+            {name: 'Max', age: 27, color: 'red'},
+            {name: 'Anna', age: 'unknown', color: 'blue'}
+          ]
         },
         methods: {
         }
