@@ -6,12 +6,21 @@
   </head>
   <body>
     <div id="app">
-
+      <p>Do You see me?</p>
+      <p v-if="show">Do You also see me?</p><!-- if show is false then this paragraph is completely detached from the DOM -->
+      <p v-else>Now You see me :)</p><!-- v-else is paired with nearest/latest v-if element that is before v-else element -->
+      <template v-if="show"> <!-- HTML5 <template> tag is not rendered in document - but it's internals are! (no wrapper side effects!) -->
+        <h1>Heading hello!</h1>
+        <p>Another line</p>
+      </template>
+      <p v-show="show">Always in DOM!</p> <!-- v-show doesn't detach when show is false - it simply show or hide it - no removal from DOM -->
+      <button @click="show = !show">Toggle</button>
     </div>
     <script>
       new Vue({
         el: '#app',
         data: {
+          show: true
         },
         methods: {
         }
