@@ -73,7 +73,7 @@
           <div class="health-bar"><div class="health" :style="{width: enemyHealth + '%'}"></div></div>
         </div>
 
-        <template v-if="!gameOver">
+        <template v-if="!gameOver && enemyHealth > 0 && playerHealth > 0">
           <div class="clear text-centered">
             <h2>Choose Your action</h2>
             <button @click="youAttack">Attack</button>
@@ -87,7 +87,7 @@
           <template v-if="enemyHealth === 0 && gameOver">
             <h2>You've won! Congratulations!</h2>
           </template>
-          <template v-else>
+          <template v-if="playerHealth === 0 && gameOver">
             <h2>You've lost. Rematch?</h2>
           </template>
 
