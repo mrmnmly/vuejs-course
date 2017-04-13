@@ -18,8 +18,9 @@
       <hr>
       <ul>
         <li v-for="ingredient in ingredients">{{ ingredient }}</li>
+        <li v-for="ingredient in ingredients" :key="ingredient">{{ ingredient }}</li><!-- thanks to :key prop, iterator stores whole object here (handy when we would like e.g. reorder whole list) and not only the pointer for the ingredient. When on update You see that wrong items are updated, then we should definetely use :key prop!  -->
       </ul>
-      
+      <button @click="ingredients.push('spices')">Add new</button> 
       <hr>
       <ul>
         <li v-for="(ingredient, indx) in ingredients">{{ ingredient }} {{ indx }}</li><!-- howto get index in v-for -->
@@ -38,7 +39,11 @@
           <div v-for="(value, key, index) in person">{{ key }}: {{ value }} ({{ index }})</div><!-- automatically iterate through object properties -->
         </li>
       </ul>
- 
+      
+      <hr>
+      <span v-for="n in 10">{{ n }}, </span> <!-- woot! vue knows to loop through integers from 1 to 10! -->
+      
+
     </div>
     <script>
       new Vue({
