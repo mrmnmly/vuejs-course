@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+    <style>
+      button{
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        border: 1px solid #111;
+        padding: 10px 15px;
+        text-transform: uppercase;
+      }
+      button:hover{
+        cursor: pointer;
+        background-color: transparent;
+        color: #111;
+      }
+      .centered{
+        display: block;
+        margin: 0 auto;
+        float: none;
+      }
+      .text-centered, h1, h2{
+        text-align: center;
+      }
+      .player{
+        display: inline-block;
+        float: left;
+        width: 48%;
+        overflow: hidden;
+      }
+      .float-right{
+        float: right;
+      }
+      .health-bar{
+        display: block;
+        width: 90%;
+        background: transparent;
+        border: 1px solid #111;
+        height: 50px;
+        overflow: hidden;
+        margin: 20px auto;
+      }
+      .health{
+        width:0;
+        height: 50px;
+        display: block;
+        background-color: #111;
+        transition: 1s width;
+      }
+      .clear{
+        display: block;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>RPG FIGHTER</h1>
+      <template v-if="!gameStarted">
+        <button @click="startGame" class="centered">Fight!</button>
+      </template>
+      <template v-else>
+        <div class="player">  
+          <h2>You ({{ playerHealth }}%)</h2>
+          <div class="health-bar"><div class="health" :style="{width: playerHealth + '%'}"></div></div>
+        </div>
+
+        <div class="player float-right">
+          <h2>Enemy ({{ enemyHealth }}%)</h2>
+          <div class="health-bar"><div class="health" :style="{width: enemyHealth + '%'}"></div></div>
+        </div>
+
+        <template v-if="!gameOver">
+          <div class="clear text-centered">
+            <h2>Choose Your action</h2>
+            <button @click="youAttack">Attack</button>
+            <button @click="specialAttack" v-if="specialAttackCounter === 0">Special Attack ({{ specialAttackTime }} turns recharge)</button>
+            <button @click="heal" v-if="healCounter === 0">Heal ({{ healTime }} turns recharge)</button>
+          </div>
+        </template>
+        <template v-else>
+          <h1>GAME OVER!</h1>
+
+          <template v-if="enemyHealth === 0">
+            <h2>You've won! Congratulations!</h2>
+          </template>
+          <template v-else>
+            <h2>You've lost. Rematch?</h2>
+          </template>
+
+          <button @click="startGame" class="centered">New fight!</button>
+        </template>
+
+      </template>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          gameStarted: false,
+          playerHealth: 100,
+          enemyHealth: 100,
+          maxDamage: 10,
+          minDamage: 1,
+          gameOver: false,
+          healCounter: 0,
+          specialAttackCounter: 0,
+          healTime: 2,
+          specialAttackTime: 3
+        },
+        methods: {
+          startGame: function(){
+            this.playerHealth = 100;
+            this.enemyHealth = 100;
+            this.gameStarted = true;
+            this.gameOver = false;
+            this.healCounter = 0;
+            this.specialAttackCounter = 0;
+          },
+          calculateDamage: function(min, max){
+            min = min || this.minDamage;
+            max = max || this.maxDamage;
+            return Math.floor(Math.random() * (this.maxDamage - this.minDamage + 1) + this.minDamage);
+          },
+          checkGameState: function(){
+            if(this.playerHealth === 0 || this.enemyHealth === 0){
+              this.gameOver = true;  
+            }else{
+              this.gameOver = false;
+            }
+          },
+          counterTick: function(){
+            this.healCounter = (this.healCounter === 0) ? 0 : this.healCounter - 1;
+            this.specialAttackCounter = (this.specialAttackCounter === 0) ? 0 : this.specialAttackCounter - 1;
+          },
+          youAttack: function(){
+            var damage = this.calculateDamage();
+
+            this.enemyHealth = (this.enemyHealth - damage) > 0 ? (this.enemyHealth - damage) : 0;
+            this.counterTick();
+            this.checkGameState();
+            this.enemyTurn();
+          },
+          specialAttack: function(){
+            var damage = this.calculateDamage() * 3;
+
+            this.enemyHealth = (this.enemyHealth - damage) > 0 ? (this.enemyHealth - damage) : 0;
+            this.counterTick();
+            this.specialAttackCounter = this.specialAttackTime;
+            this.checkGameState();
+            this.enemyTurn();
+          },
+          heal: function(){
+            var healPoints = this.calculateDamage(5, 10) * 2;
+
+            this.playerHealth  = (this.playerHealth + healPoints) < 100 ? (this.playerHealth + healPoints) : 100;
+            this.counterTick();
+            this.healCounter = this.healTime;
+            this.checkGameState();
+            this.enemyTurn();
+          },
+          enemyTurn: function(){
+            var action = this.calculateDamage(0, 10);
+            var v = this;
+            
+            this.checkGameState();
+            if(!this.gameOver){
+              setTimeout(function(){
+                if(v.enemyHealth < 35){
+                  if(action >= 3){
+                    v.enemyHeal();
+                  }else{
+                    v.enemyAttacks();
+                  } 
+                }else{
+                  if(action >= 3){
+                    v.enemyAttacks();
+                  }else{
+                    v.enemyHeal();
+                  } 
+                }
+                v.checkGameState();
+              }, 500);
+            }
+          },
+          enemyAttacks: function(){
+            var damage = this.calculateDamage(5, 15);
+
+            this.playerHealth = (this.playerHealth - damage) > 0 ? (this.playerHealth - damage) : 0;
+            this.checkGameState();
+          },
+          enemyHeal: function(){
+            var healPoints = this.calculateDamage(10, 15) * 2;
+
+            this.enemyHealth = (this.enemyHealth + healPoints) < 100 ? (this.enemyHealth + healPoints) : 100;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
