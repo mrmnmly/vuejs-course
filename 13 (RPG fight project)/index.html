@@ -84,7 +84,7 @@
         <template v-else>
           <h1>GAME OVER!</h1>
 
-          <template v-if="enemyHealth === 0">
+          <template v-if="enemyHealth === 0 && gameOver">
             <h2>You've won! Congratulations!</h2>
           </template>
           <template v-else>
