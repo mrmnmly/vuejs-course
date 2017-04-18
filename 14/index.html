@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+  </head>
+  <body>
+    <div id="app1">
+      <h1 ref="heading">{{ title }}</h1>
+    </div>
+
+    <div id="app2">
+      <h1>{{ title }}</h1>
+      <button @click="onChange" ref="myButton">Change something in Vue Module #1</button> <!-- ref is vue.js prop (not HTML5, so we dont have to writ v-ref) - and it's not a directive - it's a property! -->
+    </div>
+
+    <div id="app3">
+      <h1>{{ title }}</h1>
+    </div>
+
+    <div id="app4"></div>
+    <div id="app5">
+      <h1>{{ title }}</h1>
+      <hello></hello>
+      <hello></hello>
+    </div>
+    <script>
+      var vm1 = new Vue({   // "vm1" name stays for Vue Module #1 - it's common naming standard (vm)
+        el: '#app1',
+        data: {
+          title: 'First title'
+        }
+      });
+
+      vm1.$refs.heading.innerText = 'Title changed by refs!'; // We are changing heading content directly in the DOM, but in the Vue's instance, {{ title }}/vm1.title is still the same!! It's handy to access some data and get it (e.g. it's better than creating DOM query) - but be aware - if You want to change something via this method - it can be replaced later after next Vue.js rendering
+
+      setTimeout(function(){
+        vm1.title = 'Title changed by timer!';
+      }, 3000);
+
+
+      var vm2 = new Vue({
+        el: '#app2',
+        data: {
+          title: 'Second title'
+        },
+        methods: {
+          onChange: function(){
+            vm1.title = 'Changed title!'; 
+            console.log(this.$refs); // refs shows all registered references in current instance - it's list of pointers to actual objects - in this case e.g. myButton refers to HTML <button></button element
+            this.$refs.myButton.innerText = 'New text changed by refs!';
+          }
+        }
+      });
+
+      vm2.newProp = 'New prop value!'; // will be attached in Vue's instance, but not work properly (so don't do such things though..)
+      
+      console.log(vm1.title === vm1.$data.title); // true ;) 
+      
+      var vm3 = new Vue({   // no el property!
+        data: {
+          title: 'Third title'
+        }
+      });
+
+      vm3.$mount('#app3');  // methods with '$' sign are native Vue.js methods/properties.
+
+      var vm4 = new Vue({
+        template: '<h1>Hello!</h1>'   // this has some limitations, can be problematic - e.g. can be used only in 1 selector at webpage (e.g. div with id, or first div with a given class etc.) - to enable re-using it we have to register a component (couple lines below is example)
+      });
+
+      vm4.$mount();
+
+      document.getElementById('app4').appendChild(vm4.$el); // what kind of sorcerery ist that?! :O we can mix Vue with vanilla js ;) It's uncommon, so don't use it if You don't have to ;)
+      
+      // global registration of hello component (<hello></hello>) - if we want to use it in other #app's we have to define it in the top of the file - before initializing other Vue.js instances
+      Vue.component('hello', {
+        template: '<h1>Hello!!</h1>'
+      });
+
+      new Vue({
+        el: '#app5',
+        data: {
+          title: 'Another hello'
+        }
+      });
+
+    </script>
+  </body>
+</html>
