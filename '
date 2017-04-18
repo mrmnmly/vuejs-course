@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <script src="./../vue-development.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{ title }}</h2>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          title: 'Hello world!'
+        },
+        beforeCreate: function(){
+          console.log('before create!');  // before creating instance, virtual DOM etc.
+        },
+        created: function(){
+          console.log('created!');  // right after creating instance
+        },
+        beforeMount: function(){  // before mounted into the DOM
+          console.log('before mount!'); 
+        },
+        mounted: function(){
+          console.log('mounted!');  // after attaching instance with DOM
+        },
+        beforeUpdate: function(){ // when data changed, before updating DOM etc.
+          console.log('before updated!');
+        },
+        updated: function(){
+          console.log('updated!');  // right after DOM is updated etc.
+        },
+        beforeDestroy: function(){
+          console.log('before destroy!'); // right before destroying the instance
+        },
+        destroyed: function(){
+          console.log('destroyed!');  // after instance is destroyed 
+        }
+      });
+    </script>
+  </body>
+</html>
