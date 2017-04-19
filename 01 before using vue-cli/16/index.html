@@ -6,16 +6,73 @@
   </head>
   <body>
     <div id="app">
-
+      <server-status></server-status>
+      <hr>
+      <server-status></server-status>
+    </div>
+    <div id="app2">
+      <my-status></my-status>
+      <hr>
+      <my-status></my-status>
+    </div>
+    <div id="app3">
+      <priv-status></priv-status>
     </div>
     <script>
+      // global component
+      Vue.component('server-status', {
+        data: function(){ // different style of defining .data - in component it is a function which returns prop!
+          return {
+            status: 'critical'
+          };
+        },
+        template: '<p>Server status: {{ status }}</p>'
+      });
+
       new Vue({
         el: '#app',
-        data: {
+        /*(data: {  // these props can be placed here or like above - in the component
+          status: 'critical'
         },
+        template: '<p>Server status: {{ status }}</p>'*/
+      }); 
+
+      var myData = {status: 'Happy'};
+
+      // global component
+      Vue.component('my-status', {
+        data: function(){
+          return myData;  // when binding data like that, all instances of my-status component will be binded to same data source! (shared data object)
+        },
+        template: '<p>My status is: {{ status }} (<button @click="changeStatus">Change status</button>)</p>',
         methods: {
+          changeStatus: function(){
+            this.status = 'Angry!'; // this should be changed only for current component, but since we use remote data source it will change in every my-status instance!
+          }
         }
-      })
+      });
+
+      new Vue({
+        el: '#app2'
+      });
+
+      // local component
+      var cmp1 = {
+        data: function(){
+          return {
+            status: 'online'
+          };
+        },
+        template: '<p>My priv server status: {{ status }}</p>'
+      }
+
+      // binding local component to Vue's instance
+      new Vue({
+        el: '#app3',
+        components: {
+          'priv-status': cmp1
+        }
+      });
     </script>
   </body>
 </html>
