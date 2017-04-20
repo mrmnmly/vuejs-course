@@ -10,10 +10,10 @@
     </div>
 </template>
 <script>
-  import CustomHeader from './components/CustomHeader.vue';
-  import ListGroup from './components/ListGroup.vue';
-  import CustomFooter from './components/CustomFooter.vue';
-  import ServerStatus from './components/ServerStatus.vue';
+  import CustomHeader from './components/Shared/CustomHeader.vue';
+  import ListGroup from './components/Server/ListGroup.vue';
+  import CustomFooter from './components/Shared/CustomFooter.vue';
+  import ServerStatus from './components/Server/ServerStatus.vue';
 
   export default {
     components: {
