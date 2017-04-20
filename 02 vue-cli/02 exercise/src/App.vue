@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <customHeader></customHeader> <!-- I can use camelCase or dash component tags for naming -->
         <custom-header></custom-header>
         <div class="row">
           <list-group></list-group>
@@ -17,7 +18,7 @@
 
   export default {
     components: {
-      'custom-header': CustomHeader,
+      customHeader: CustomHeader, // if I want to use camelCase components tags, then I can remove quotation marks
       'list-group': ListGroup,
       'custom-footer': CustomFooter,
       'server-status': ServerStatus
