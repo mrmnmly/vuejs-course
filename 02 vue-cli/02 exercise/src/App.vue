@@ -2,25 +2,25 @@
     <div class="container">
         <custom-header></custom-header>
         <div class="row">
-            <list-group></list-group>
-            <div class="col-xs-12 col-sm-6">
-                <p>Server Details are currently not updated</p>
-            </div>
+          <list-group></list-group>
+          <server-status></server-status>
         </div>
         <hr>
       <custom-footer></custom-footer>
     </div>
 </template>
 <script>
-  import CustomHeader from './CustomHeader.vue';
-  import ListGroup from './ListGroup.vue';
-  import CustomFooter from './CustomFooter.vue';
+  import CustomHeader from './components/CustomHeader.vue';
+  import ListGroup from './components/ListGroup.vue';
+  import CustomFooter from './components/CustomFooter.vue';
+  import ServerStatus from './components/ServerStatus.vue';
 
   export default {
     components: {
       'custom-header': CustomHeader,
       'list-group': ListGroup,
-      'custom-footer': CustomFooter
+      'custom-footer': CustomFooter,
+      'server-status': ServerStatus
     }
   }
 </script>
