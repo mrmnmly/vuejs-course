@@ -18,9 +18,9 @@
 
   export default {
     components: {
-      customHeader: CustomHeader, // if I want to use camelCase components tags, then I can remove quotation marks
+      customHeader: CustomHeader, // if I want to use camelCase components tags, then I can remove quotation marks, but it's not a common solution
       'list-group': ListGroup,
-      'custom-footer': CustomFooter,
+      CustomFooter, // thanks to ES6, this transpiles to CustomFooter: CustomFooter
       'server-status': ServerStatus
     }
   }
