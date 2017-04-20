@@ -5,6 +5,7 @@
         <div class="row">
           <list-group></list-group>
           <server-status></server-status>
+          <hr>
         </div>
         <hr>
       <custom-footer></custom-footer>
