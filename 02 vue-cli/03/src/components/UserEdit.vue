@@ -17,7 +17,8 @@
       editAge(){
         this.userAge = 30;
 //        this.$emit('ageWasEdited', this.userAge);
-        eventBus.$emit('ageWasEdited', this.userAge);
+//        eventBus.$emit('ageWasEdited', this.userAge); // we can now use eventBus method, defined in main.js file (used below)
+        eventBus.changeAge(this.userAge);
       }
     }
   }
