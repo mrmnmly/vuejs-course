@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import { eventBus } from '../main';
+
   export default {
 //    props: ['myName'], // props attribute are the properties from parent components - in this case - User.vue component data called 'myName'
     props: {
@@ -38,7 +40,12 @@
         this.myName = 'Max'; // this changes value only in current component, not in the parent one, we have to emit an event to update parent component value
         this.$emit('nameWasReset', this.myName);
       }
-    }
+     },
+     created(){
+       eventBus.$on('ageWasEdited', (age) => {
+        this.userAge = age;
+       });
+     }
   }
 </script>
 

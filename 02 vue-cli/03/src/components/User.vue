@@ -4,6 +4,7 @@
         <p>I'm an awesome User!</p>
         <button @click="changeName">Change my name</button>
         <p>Name is {{ name }}</p> <!-- remove the @nameWasReset binding below and then click arount the app and see what happened -->
+        <p>Age is {{ age }}</p> <!-- it will stay 27 even if we modify it by eventBus, because now we do not use parent component to sync data -->
         <hr>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
