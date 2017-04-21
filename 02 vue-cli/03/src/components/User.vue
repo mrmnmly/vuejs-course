@@ -6,7 +6,7 @@
         <hr>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <app-user-detail :name="name"></app-user-detail> <!-- :name must equal the property in string that we defined in UserDetail.vue file in an props array (props: ['name'] )-->
+                <app-user-detail :name="1"></app-user-detail> <!-- :name must equal the property in string that we defined in UserDetail.vue file in an props array (props: ['name'] )-->
             </div>
             <div class="col-xs-12 col-sm-6">
                 <app-user-edit></app-user-edit>
