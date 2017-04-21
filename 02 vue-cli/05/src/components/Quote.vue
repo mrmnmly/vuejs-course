@@ -1,6 +1,15 @@
+    <!--<slot></slot> --> <!-- <slot></slot> is a reserved, built-in type of component in Vue.js that takes HTML content of parent component (in this case, from App.vue file the insides of <app-quote>. This should be placed in template --> 
 <template>
   <div>
-    <slot></slot>  <!-- <slot></slot> is a reserved, built-in type of component in Vue.js that takes HTML content of parent component (in this case, from App.vue file the insides of <app-quote> --> 
+    <div class="title">
+      <slot name="title"></slot> 
+      <span style="color: #ccc"><slot name="subtitle">The Subtitle</slot></span> <!-- slot with default value -->
+    </div>
+    <hr>
+    <div>
+      <slot name="content"></slot>
+      <slot></slot> <!-- default slot, whithout a name -->
+    </div>
   </div>
 </template>
 
