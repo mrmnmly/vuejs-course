@@ -2,17 +2,20 @@
     <div class="component">
         <h3>You may view the User Details here</h3>
         <p>Many Details</p>
-        <p>User Name: {{ name }} (Reversed: {{ switchName() }})</p>
+        <p>User Name: {{ myName }} (Reversed: {{ switchName() }})</p>
+        <p>User Age: {{ userAge }}</p>
+        <button @click="resetName">Reset Name</button>
+        <button @click="resetFn()">Reset Name</button> <!-- function without custom event, has to have () because it's a (remote) function -->
     </div>
 </template>
 
 <script>
   export default {
-//    props: ['name'], // props attribute are the properties from parent components - in this case - User.vue component data called 'name'
+//    props: ['myName'], // props attribute are the properties from parent components - in this case - User.vue component data called 'myName'
     props: {
-//      name: String
-//      name: [String, Array] // available ways of defying props ;)  
-/*    name: {
+//      myName: String
+//      myName: [String, Array] // available ways of defying props ;)  
+/*    myName: {
         type: Object, // or for Array
         default: function(){
           return {
@@ -21,15 +24,19 @@
           }
         }
       }*/
-      name: {
-        type: String,
-//      default: 'Max', // doesn't make sense with required set to true ;)
-        required: true
-      }
+      myName: {
+        type: String
+      },
+      resetFn: Function,
+      userAge: Number
     },
     methods: {
       switchName() {
-        return this.name.split('').reverse().join('');
+        return this.myName.split('').reverse().join('');
+      },
+      resetName() {
+        this.myName = 'Max'; // this changes value only in current component, not in the parent one, we have to emit an event to update parent component value
+        this.$emit('nameWasReset', this.myName);
       }
     }
   }
