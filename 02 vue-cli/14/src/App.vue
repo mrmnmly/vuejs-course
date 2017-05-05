@@ -46,7 +46,7 @@
                   @after-leave="afterLeave"
                   @leave-cancelled="leave-cancelled"
                   :css="false"><!-- these are js transition hooks - they're an alternative to css ones, but You can use them as fine as css ones, :css="false" tells vue to not use any css transitions - because we want to animate it by using just js -->
-                  <div style="width: 100px; height: 100px; background-color: lightgreen;" v-if="load"></div>
+                  <div style="width: 300px; height: 100px; background-color: lightgreen;" v-if="load"></div>
                 </transition>
             </div>
         </div>
@@ -59,16 +59,27 @@
             return {
               show: false,
               load: true,
-              alertAnimation: 'fade'
+              alertAnimation: 'fade',
+              elementWidth: 100
             }
         },
         methods: {
           beforeEnter(el) { // el is an element on which this transition is performed
             console.log('before enter');
+            this.elementWidth = 100;
+            el.style.width = this.elementWidth + 'px';
           },
           enter(el, done) { // done MUST be called when transition finishes - when we want inform Vue that animation finished
             console.log('enter!');
-            done();
+            let round = 1;
+            const interval = setInterval(() => {
+              el.style.width = (this.elementWidth + round * 10) + 'px';
+              round++;
+              if(round > 20){
+                clearInterval(interval);
+                done();
+              }
+            }, 20);
           },
           afterEnter(el) {
             console.log('after enter');
@@ -78,10 +89,21 @@
           },
           beforeLeave(el) {
             console.log('before leave');
+            this.elementWidth = 300;
+            el.style.width = this.elementWidth + 'px';
           },
           leave(el, done) {
             console.log('leave');
-            done();
+            let round = 1;
+            const interval = setInterval(() => {
+              el.style.width = (this.elementWidth - round * 10) + 'px';
+              round++;
+              if(round > 20){
+                clearInterval(interval);
+                done();
+              }
+            }, 20);
+
           },
           afterLeave(el) {
             console.log('after leave');
