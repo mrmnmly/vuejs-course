@@ -11,18 +11,22 @@
               <ul><!--  we shouldn't use filters here, because they're recalculated on each render - no matter if something changed or not - it's better to use computed property here   -->
                 <li v-for="fruit in filteredFruits">{{ fruit }}</li>
               </ul>
+              <hr>
+              <app-list></app-list>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import List from './List.vue';
+    import { fruitMixin } from './fruitMixin';
+
     export default {
+      mixins: [fruitMixin],
       data() {
         return {
-          text: 'Hello there!',
-          fruits: ['apple', 'banana', 'mango', 'melon'],
-          filterText: ''
+          text: 'Hello there!'
         };
       },
       filters: { // filters TRANSFORMS the way of data looks in the template/output - it doesn't transform data ITSELF! !
@@ -30,12 +34,8 @@
           return value.toUpperCase(); 
         }       
       },
-      computed: {
-        filteredFruits() {
-          return this.fruits.filter((element) => {
-            return element.match(this.filterText);
-          });
-        } 
+      components: {
+        'app-list': List
       }
     }
 </script>
