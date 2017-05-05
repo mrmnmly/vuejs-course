@@ -23,7 +23,7 @@
     import { fruitMixin } from './fruitMixin';
 
     export default {
-      mixins: [fruitMixin],
+      mixins: [fruitMixin], // it doesn't destroy the data - it is merged into it. If we have some lifecycle hooks inside mixin and component - the hook from the component will run first, and then the component's one
       data() {
         return {
           text: 'Hello there!'

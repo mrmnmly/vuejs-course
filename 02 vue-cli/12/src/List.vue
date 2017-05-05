@@ -12,7 +12,10 @@
     import { fruitMixin} from './fruitMixin';
 
     export default {
-      mixins: [fruitMixin] 
+      mixins: [fruitMixin],
+      created() { // component can override mixins behavior - because it is ran as last
+        console.log('list created');
+      }
     }
 </script>
 
