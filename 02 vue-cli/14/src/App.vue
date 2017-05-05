@@ -7,13 +7,22 @@
                 <button class="btn btn-primary" @click="show = !show">Toggle Alert</button>
                 <br><br>
                 <transition name="fade"> <!-- we can animate only ONE DOM element inside <transition> tag! -->
-                  <div class="alert alert-info" v-if="show">This is some Info</div>
+                  <div class="alert alert-info" v-if="show">This is some Info</div><!-- we can also use v-show here instead of v-if -->
                 </transition>
                 
                 <transition name="slide" type="animation"> <!-- type can be set also to "animation" - it sets the main timing value to finish everything at the same time (synchronize) -->
                   <div class="alert alert-info" v-if="show">This is some Info</div>
                 </transition>
-
+                <hr>
+                <transition name="fade" appear><!-- thanks to appear prop, it will animate on page load ;) -->
+                  <div class="alert alert-info" v-if="show">This is some Info</div>
+                </transition>
+                <hr>
+                <transition
+                  enter-active-class="animated bounce"
+                  leave-active-class="animated shake"> <!-- overriding default vuejs transition class name scheming with total custom classes - we can also use enter-class and leave-class but in this case we don't have to so we haven't inserted it here -->
+                  <div class="alert alert-info" v-if="show">This is some Info</div>
+                </transition>
             </div>
         </div>
     </div>
@@ -23,7 +32,7 @@
     export default {
         data() {
             return {
-              show: false 
+              show: true 
             }
         }
     }
