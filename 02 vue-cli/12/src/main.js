@@ -19,3 +19,4 @@ new Vue({
   render: h => h(App)
 })
 // global mixins runs first, then local mixins, and component code last - has the last word ;)
+// mixin objects are fresh copies - data is not shared - if You want share data, consider using eventBus or something.

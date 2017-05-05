@@ -7,6 +7,7 @@
               <p>{{ text | to-lowercase }}</p>
               <p>{{ text | toUppercase | to-lowercase }}</p>
               <hr>
+              <button @click="fruits.push('Berries')">Add new item</button>
               <input v-model="filterText">
               <ul><!--  we shouldn't use filters here, because they're recalculated on each render - no matter if something changed or not - it's better to use computed property here   -->
                 <li v-for="fruit in filteredFruits">{{ fruit }}</li>
