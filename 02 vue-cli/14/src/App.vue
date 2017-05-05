@@ -10,7 +10,7 @@
                   <div class="alert alert-info" v-if="show">This is some Info</div>
                 </transition>
                 
-                <transition name="slide">
+                <transition name="slide" type="animation"> <!-- type can be set also to "animation" - it sets the main timing value to finish everything at the same time (synchronize) -->
                   <div class="alert alert-info" v-if="show">This is some Info</div>
                 </transition>
 
@@ -47,16 +47,19 @@
   }
   
   .slide-enter {
-    /* we don't have to define starting point, because it is in its default position  */ 
+    opacity: 0;
   }
   .slide-enter-active {
     animation: slide-in 1s ease-out forwards;
+    transition: opacity .5s;
   }
   .slide-leave {
-    /* same as on .slide-enter */
+    /* we don't have to set opacity to 1 here because it will already be 1 */
   }
   .slide-leave-active {
     animation: slide-out 1s ease-out forwards;
+    transition: opacity 3s;
+    opacity: 0;
   }
   @keyframes slide-in{
     from {
