@@ -4,9 +4,14 @@
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <h1>Animations</h1>
                 <hr>
+                <select v-model="alertAnimation" class="form-control"> 
+                  <option value="fade">Fade</option>
+                  <option value="slide">Slide</option>
+                </select>
+                <br><br>
                 <button class="btn btn-primary" @click="show = !show">Toggle Alert</button>
                 <br><br>
-                <transition name="fade"> <!-- we can animate only ONE DOM element inside <transition> tag! -->
+                <transition :name="alertAnimation"> <!-- we can animate only ONE DOM element inside <transition> tag! -->
                   <div class="alert alert-info" v-if="show">This is some Info</div><!-- we can also use v-show here instead of v-if -->
                 </transition>
                 
@@ -32,7 +37,8 @@
     export default {
         data() {
             return {
-              show: true 
+              show: true,
+              alertAnimation: 'fade'
             }
         }
     }
