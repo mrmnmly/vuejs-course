@@ -34,7 +34,20 @@
                   <div class="alert alert-warning" v-else key="warning">This is some Warning</div> <!-- we have to use here v-if and v-else - NOT v-show! -->
                 </transition>
                 <hr>
-                 
+                <button class="btn btn-primary" @click="load = !load">Load / Remove Element</button> 
+                <br><br>
+                <transition 
+                  @before-enter="beforeEnter"
+                  @enter="enter"
+                  @after-enter="afterEnter"
+                  @enter-cancelled="enterCancelled"
+                  @before-leave="beforeLeave"
+                  @leave="leave"
+                  @after-leave="afterLeave"
+                  @leave-cancelled="leave-cancelled"
+                  :css="false"><!-- these are js transition hooks - they're an alternative to css ones, but You can use them as fine as css ones, :css="false" tells vue to not use any css transitions - because we want to animate it by using just js -->
+                  <div style="width: 100px; height: 100px; background-color: lightgreen;" v-if="load"></div>
+                </transition>
             </div>
         </div>
     </div>
@@ -44,9 +57,38 @@
     export default {
         data() {
             return {
-              show: true,
+              show: false,
+              load: true,
               alertAnimation: 'fade'
             }
+        },
+        methods: {
+          beforeEnter(el) { // el is an element on which this transition is performed
+            console.log('before enter');
+          },
+          enter(el, done) { // done MUST be called when transition finishes - when we want inform Vue that animation finished
+            console.log('enter!');
+            done();
+          },
+          afterEnter(el) {
+            console.log('after enter');
+          },
+          enterCancelled(el) {
+            console.log('enter cancelled');
+          },
+          beforeLeave(el) {
+            console.log('before leave');
+          },
+          leave(el, done) {
+            console.log('leave');
+            done();
+          },
+          afterLeave(el) {
+            console.log('after leave');
+          },
+          leaveCancelled(el) {
+            console.log('leave cancelled');
+          }
         }
     }
 </script>
