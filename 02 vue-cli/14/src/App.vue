@@ -28,6 +28,13 @@
                   leave-active-class="animated shake"> <!-- overriding default vuejs transition class name scheming with total custom classes - we can also use enter-class and leave-class but in this case we don't have to so we haven't inserted it here -->
                   <div class="alert alert-info" v-if="show">This is some Info</div>
                 </transition>
+                <hr>
+                <transition :name="alertAnimation" mode="out-in"> <!-- mode out-in == all animations of hiding goes on, and when ends the showing animations will go - the invertion of this is "in-out" value --> 
+                  <div class="alert alert-info" v-if="show" key="info">This is some Info</div><!-- value of the "key" property must be unique - we have to use it when we want to handle transition between two elements inside <transition> tag - from one to another -->
+                  <div class="alert alert-warning" v-else key="warning">This is some Warning</div> <!-- we have to use here v-if and v-else - NOT v-show! -->
+                </transition>
+                <hr>
+                 
             </div>
         </div>
     </div>
