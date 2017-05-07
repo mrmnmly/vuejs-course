@@ -6,7 +6,8 @@ import { routes } from './routes';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes // ES6 key-value short syntax
+  routes, // ES6 key-value short syntax
+  mode: 'history' //to use urls without hashtag we have to config our server to server always index.html to all url cases!!!
 });
 
 new Vue({
