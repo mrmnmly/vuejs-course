@@ -13,6 +13,8 @@
                 </div>
                 <button class="btn btn-primary" @click="submit">Submit</button>
                 <hr>
+                <input class="form-control" type="text" v-model="node">
+                <br><br>
                 <button class="btn btn-primary" @click="fetchData">Get Data</button>
                 <br><br>
                 <ul class="list-group">
@@ -32,7 +34,8 @@
             email: ''
           },
           users: [],
-          resource: {}
+          resource: {},
+          node: 'data'
         }
       },
       methods: {
@@ -48,10 +51,19 @@
           this.resource.saveAlt(this.user);
         },
         fetchData() {
-           this.$http.get('data.json')
+/*           this.$http.get('data.json')
             .then(resp => {
               return resp.json(); // built-in method in vue-resource plugin
             }).then(data => {
+              const arr = [];
+
+              for(let key in data){
+                arr.push(data[key]);
+              }
+              this.users = arr;
+            });*/
+          this.resource.getData({node: this.node})
+            .then(data => {
               const arr = [];
 
               for(let key in data){
@@ -66,9 +78,10 @@
           saveAlt: {
             method: 'POST',
             url: 'alternative.json'
-          }
+          },
+          getData: {method: 'GET'}
         };
-        this.resource = this.$resource('data.json', {}, customActions);
+        this.resource = this.$resource('{node}.json', {}, customActions);
       }
     }
 </script>
