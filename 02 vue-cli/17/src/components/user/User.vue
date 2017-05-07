@@ -13,6 +13,11 @@
         id: this.$route.params.id // access route params example
       }
     },
+    watch: {
+      '$route'(to, from) { // watch for route changes to update id when switching between same component but different ids
+        this.id = to.params.id;
+      }
+    },
     methods: {
       navigateToHome() {
         this.$router.push('/'); // js-based navigation example
