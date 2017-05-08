@@ -19,5 +19,8 @@ export const routes = [
     { path: '', component: UserStart },
     { path: ':id', component: UserDetail },
     { path: ':id/edit', component: UserEdit, name: 'userEdit' }
-   ] }
+   ] },
+   /*{ path: '/redirect-me', redirect: '/user'}*/ // example of simple redirection
+   { path: '/redirect-me', redirect: { name: 'home' } }, // redirection based on route name
+   { path: '*', redirect: '/' } // generic catch all else
 ];
