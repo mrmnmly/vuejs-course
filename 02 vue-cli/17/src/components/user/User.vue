@@ -22,7 +22,8 @@
     },*/
     methods: {
       navigateToHome() {
-        this.$router.push('/'); // js-based navigation example
+//        this.$router.push('/'); // js-based navigation example
+        this.$router.push({ name: 'home'}); // js-based navigation example
       }
     }
   }
