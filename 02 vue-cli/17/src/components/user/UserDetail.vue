@@ -30,7 +30,7 @@
       // next();// if You don't execute next() function, then this component won't be loaded !!!
 
       // dummy example of authentication - let's assume that true/false is the switch/result of that user has been authenticated
-      if(false){
+      if(true){
         next();
       }else{
         next(false);
