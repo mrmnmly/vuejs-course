@@ -4,6 +4,7 @@ import Header from './components/Header.vue';
 // webpack's dynamic loading necessary code (splits bundle into multiple bundles)
 const User = resolve => {
   require.ensure(['./components/user/User.vue'], () => {
+    console.log(resolve);
     resolve(require('./components/user/User.vue'));
   });
 };
