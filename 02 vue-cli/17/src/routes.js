@@ -4,10 +4,24 @@ import Header from './components/Header.vue';
 // webpack's dynamic loading necessary code (splits bundle into multiple bundles)
 const User = resolve => {
   require.ensure(['./components/user/User.vue'], () => {
-    console.log(resolve);
     resolve(require('./components/user/User.vue'));
   });
 };
+const UserStart = resolve => {
+  require.ensure(['./components/user/UserStart.vue'], () => {
+    resolve(require('./components/user/UserStart.vue'));
+  });
+}
+const UserEdit = resolve => {
+  require.ensure(['./components/user/UserEdit.vue'], () => {
+    resolve(require('./components/user/UserEdit.vue'));
+  });
+}
+const UserDetail = resolve => {
+  require.ensure(['./components/user/UserDetail.vue'], () => {
+    resolve(require('./components/user/UserDetail.vue'));
+  });
+}
 
 export const routes = [
   { path: '', name: 'home', components: {
