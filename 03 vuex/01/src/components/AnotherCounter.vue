@@ -7,21 +7,20 @@
 
 <script>
     import { mapMutations } from 'vuex';
-
+    
     export default {
         methods: {
-            ...mapMutations([
+            ...mapMutations([ // execute mutations #2 example
               'increment',
               'decrement'
             ])
-
             /*increment() {
-                // this.$emit('updated', 1);
-                this.$store.state.counter++;
+                 //this.$store.state.counter++;
+                 this.$store.commit('increment');// execute mutations #1 example
             },
             decrement() {
-                // this.$emit('updated', -1);
-                this.$store.state.counter--;
+//                this.$store.state.counter--;
+              this.$store.commit('decrement');
             }*/
         }
     }
